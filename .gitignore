@@ -1,0 +1,42 @@
+# Visual Studio and local IDE settings
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+
+# .NET build and publish output
+**/bin/
+**/obj/
+artifacts/
+publish/
+
+# Test results and coverage
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Temporary work and logs
+work/
+*.log
+*.tmp
+
+# Local configuration and secrets
+secrets.json
+appsettings.Local.json
+appsettings.*.Local.json
+.env
+.env.*
+!.env.example
+
+# Local database files
+*.mdf
+*.ndf
+*.ldf
+*.bak
+
+# Operating system files
+Thumbs.db
+.DS_Store

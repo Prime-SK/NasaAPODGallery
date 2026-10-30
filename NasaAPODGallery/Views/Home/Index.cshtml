@@ -1,0 +1,79 @@
+﻿@model List<NasaAPODGallery.Models.ApodEntry>
+@{
+    ViewData["Title"] = "NASA APOD Gallery";
+}
+<h1>NASA APOD Gallery</h1>
+
+@if (TempData["Message"] is string message)
+{
+    <div class="alert alert-info">@message</div>
+}
+
+<form asp-controller="Home" asp-action="Fetch" method="post">
+    <div class="mb-3">
+        <label for="startDate">Start date</label>
+        <input type="date"
+               id="startDate"
+               name="startDate"
+               class="form-control"
+               required />
+    </div>
+
+    <div class="mb-3">
+        <label for="endDate">End date</label>
+        <input type="date"
+               id="endDate"
+               name="endDate"
+               class="form-control"
+               required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Fetch and save
+    </button>
+</form>
+
+<hr class="my-4" />
+
+<h2>Saved pictures</h2>
+
+@if (Model.Count == 0)
+{
+    <p>No records saved yet. Select dates above to get started.</p>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var entry in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <article class="card h-100">
+                    @if (entry.MediaType == "image" &&
+                         !string.IsNullOrWhiteSpace(entry.HdUrl))
+                    {
+                        <img src="@entry.HdUrl"
+                             alt="@(string.IsNullOrWhiteSpace(entry.Alt) ? entry.Title : entry.Alt)"
+                             class="card-img-top apod-image"
+                             loading="lazy" />
+                    }
+                    else
+                    {
+                        <div class="p-4 bg-light text-center">
+                            Image preview unavailable
+                            <span class="d-block text-muted">
+                                Media type: @entry.MediaType
+                            </span>
+                        </div>
+                    }
+
+                    <div class="card-body">
+                        <h3 class="h5 card-title">@entry.Title</h3>
+                        <p class="card-text text-muted">
+                            @entry.Date.ToString("yyyy-MM-dd")
+                        </p>
+                    </div>
+                </article>
+            </div>
+        }
+    </div>
+}
