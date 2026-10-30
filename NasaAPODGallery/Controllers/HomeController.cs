@@ -16,7 +16,7 @@ namespace NasaAPODGallery.Controllers
             return View(entries);
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
